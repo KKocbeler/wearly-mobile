@@ -1,21 +1,23 @@
 import { Image, StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native'
-import React, { useState } from 'react'
 import { FontAwesome } from '@expo/vector-icons'
 import AppText from '../AppText';
 import { APP_COLORS } from '../../themes/appColors';
 import { s, vs } from 'react-native-size-matters';
 import { APP_TYPOGRAPHY } from '../../themes/appTypography';
-import { productType } from '../../types/products';
 import { useNavigation } from '@react-navigation/native';
+import { ProductType } from '../../types/products';
+import { useWishlist } from '../../context/WishlistContext';
 
 type ProductCardProps = {
-  product: productType;
-  showFav?: boolean;
-  style?: StyleProp<ViewStyle>;
+    product: ProductType;
+    style?: StyleProp<ViewStyle>;
 };
-const ProductCard = ({product, showFav = true, style}: ProductCardProps) => {
-    const [isFavorite, setIsFavorite] = useState(false);
+
+const ProductCard = ({product, style}: ProductCardProps) => {
     const navigation = useNavigation<any>();
+    const {wishlistIds, toggleWishlist} = useWishlist();
+    const isFavorite = wishlistIds?.includes(product.id) ?? false;
+
     return (
         <TouchableOpacity 
             style={[styles.card, style]}
@@ -27,10 +29,10 @@ const ProductCard = ({product, showFav = true, style}: ProductCardProps) => {
         >
             <View style={styles.cardHeader}>
                 <TouchableOpacity
-                    style={[styles.favoriteButton, !showFav && {display: 'none'}]}
+                    style={[styles.favoriteButton, ]}
                     accessibilityRole='button'
                     accessibilityLabel='Favorite button'
-                    onPress={() => setIsFavorite(!isFavorite)}
+                    onPress={() => toggleWishlist(product.id)}
                     hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                 >
                     <FontAwesome name={isFavorite ? "heart" : "heart-o"} size={s(16)} color={APP_COLORS.primary} />
