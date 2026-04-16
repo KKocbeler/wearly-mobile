@@ -14,7 +14,7 @@ const HomeProductType = () => {
     const [activeType, setActiveType] = useState("Popular")
 
     return (
-        <FlatList 
+        <FlatList
             data={filterType}
             keyExtractor={(item) => item.label}
             horizontal
@@ -26,8 +26,8 @@ const HomeProductType = () => {
                     accessibilityHint={`Changes products to ${item.label} type`}
                     onPress={() => {setActiveType(item.label)}}
                     style={{
-                        paddingVertical: vs(3),
-                        paddingHorizontal: s(8),
+                        paddingVertical: vs(8),
+                        paddingHorizontal: s(12),
                         borderRadius: APP_TYPOGRAPHY.sizes.lg,
                         marginRight: 10,
                         backgroundColor: item.label === activeType ? APP_COLORS.primary : APP_COLORS.light,

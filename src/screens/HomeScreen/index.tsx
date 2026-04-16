@@ -5,16 +5,17 @@ import ProductCard from '../../components/ProductCard'
 import HomeSearch from './HomeSearch'
 import HomeCategories from './HomeCategories'
 import HomeSlider from './HomeSlider'
-import HomeProductType from './HomeProductList'
+import HomeProductType from './HomeProductTye'
+import { PRODUCTS } from '../../constants/products'
 
 const HomeScreen = () => {
     return (
-        <AppSafeView fullScreen>
+        <AppSafeView fullScreen top style={{paddingBottom: 0}}>
             <HomeSearch />
             <FlatList
-                data={[1,2,3,4,5,6]}
+                data={PRODUCTS}
                 numColumns={2}
-                keyExtractor={(item) => item.toString()}
+                keyExtractor={(item) => item.id}
                 columnWrapperStyle={{
                     justifyContent: "space-between",
                     marginVertical: vs(10)
@@ -26,7 +27,7 @@ const HomeScreen = () => {
                         <HomeProductType />
                     </>
                 }
-                renderItem={() => <ProductCard style={{width: "49%"}} />}
+                renderItem={({item}) => <ProductCard style={{width: "49%"}} product={item}/>}
                 showsVerticalScrollIndicator= {false}
             />
         </AppSafeView>
