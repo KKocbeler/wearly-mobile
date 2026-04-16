@@ -16,15 +16,18 @@ const AppButton: React.FC<AppButtonsProps> = (
         loading = false,
         disabled = false,
         style,
+        textVariant = "body",
         ...props
     }
 ) => {
     const variantStyle = variantStyles[variant];
     const sizeStyle = sizeStyles[size];
+    const isLightVariant = variant === "ghost" || variant === "outline";
     return (
         <TouchableOpacity 
             onPress={onPress} 
             disabled={disabled}
+            accessibilityRole='button'
             style={[
                 styles.base, 
                 variantStyle, 
@@ -38,7 +41,7 @@ const AppButton: React.FC<AppButtonsProps> = (
                 loading ? (
                     <ActivityIndicator color={APP_COLORS.light}/>
                 ) : (
-                    <AppText variant='body'>{title}</AppText>
+                    <AppText variant={textVariant} color={isLightVariant ? "textDark" : "textWhite"}>{title}</AppText>
                 )
             }
             
@@ -52,19 +55,21 @@ const styles = StyleSheet.create({
     base: {
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: APP_TYPOGRAPHY.sizes.xs
+        borderRadius: APP_TYPOGRAPHY.sizes.md
     }
 })
 
 const variantStyles = StyleSheet.create({ 
     primary: {
-        backgroundColor: APP_COLORS.light
+        backgroundColor: APP_COLORS.primary
     },
     secondary: {
-        backgroundColor: APP_COLORS.accent
+        backgroundColor: APP_COLORS.secondary
     },
     outline: {
-        backgroundColor: APP_COLORS.brown
+        backgroundColor: APP_COLORS.light,
+        borderWidth: 1,
+        borderColor: APP_COLORS.textDark
     },
     ghost: {
         backgroundColor: "transparent"
@@ -73,15 +78,15 @@ const variantStyles = StyleSheet.create({
 
 const sizeStyles = StyleSheet.create({
     sm: {
-        paddingVertical: vs(6),
+        paddingVertical: vs(8),
         paddingHorizontal: s(12)
     },
     md: {
-        paddingVertical: vs(8),
+        paddingVertical: vs(12),
         paddingHorizontal: s(18)
     },
     lg: {
-        paddingVertical: vs(1),
+        paddingVertical: vs(16),
         paddingHorizontal: s(20)
     }
 })

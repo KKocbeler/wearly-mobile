@@ -7,9 +7,9 @@ const AppText: React.FC<AppTextProps> = ({
     children,
     color="#0F0F0F", 
     size="md", 
-    weight="medium",
+    weight="regular",
     align="left",
-    variant= "title",
+    variant= "body",
     numberOfLines,
     style,
     ...props

@@ -8,7 +8,7 @@ import { AppTextInputProps } from '../../types/appTextInput'
 
 const AppTextInput: React.FC<AppTextInputProps> = ({
     label,
-    error = "dsadfsa",
+    error = "",
     onChangeText,
     containerStyle,
     style,
@@ -22,7 +22,7 @@ const AppTextInput: React.FC<AppTextInputProps> = ({
     <View style={[styles.container, containerStyle]}>
         {
             label && (
-                <AppText variant='caption' style={styles.label}>
+                <AppText variant='small' style={styles.label}>
                     {label}
                 </AppText>
             )
@@ -33,7 +33,10 @@ const AppTextInput: React.FC<AppTextInputProps> = ({
             style={[
                 styles.input,
                 style,
-                { borderColor: error ? APP_COLORS.accent : APP_COLORS.light}
+                { 
+                    borderColor: error ? APP_COLORS.appBackground : APP_COLORS.border,
+                    backgroundColor: error ? APP_COLORS.appBackground : APP_COLORS.light
+                }
             ]}
             editable={!disabled}
             secureTextEntry={secureTextEntry}
@@ -65,7 +68,6 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
         borderRadius: APP_TYPOGRAPHY.sizes.sm,
-        backgroundColor: APP_COLORS.light,
         paddingVertical: vs(10),
         paddingHorizontal: s(12)
     },
