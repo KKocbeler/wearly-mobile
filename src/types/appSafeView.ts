@@ -5,5 +5,7 @@ export interface AppSafeViewProps {
     style?: ViewStyle | ViewStyle[];
     padding?: number;
     fullScreen?: boolean;
-    backgroundColor?: string
+    backgroundColor?: string;
+    bottom?: boolean;
+    top?: boolean;
 }
